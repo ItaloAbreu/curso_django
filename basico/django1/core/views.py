@@ -1,22 +1,26 @@
 from django.shortcuts import render
 
-# Create your views here.
-def index(request):
-    print(dir(request.user))
-    print(f'User: {request.user}')
+from .models import Produto
 
-    if str(request.user) == 'AnonymousUser':
-        teste = 'Usuario Não Logado'
-    else:
-        teste = 'Usuario Logado'
+def index(request):
+    produtos = Produto.objects.all()
 
     context = {
         'curso': 'Programação WEB com Django Framework',
         'outro': 'Django é massa!',
-        'logado': teste
+        'produtos': produtos
     }
     return render(request, 'index.html', context)
 
 
 def contato(request):
     return render(request, 'contato.html')
+
+def produto(request, pk):
+    prod = Produto.objects.get(pk=pk)
+    print(prod)
+
+    context = {
+        'produto': prod
+    }
+    return render(request, 'produto.html', context)
