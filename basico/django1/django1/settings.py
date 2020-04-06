@@ -27,7 +27,7 @@ SECRET_KEY = 'b#tc&j^vs^3k1ocw9f80@sva%2@6!$)c7k@=ibegcv1rf!9tz1'
 # DEBUG com valor true = modo produção
 DEBUG = False
 
-ALLOWED_HOSTS = ['*'] # www.geekuniversity.com.br
+ALLOWED_HOSTS = ['django1-itl.herokuapp.com'] # www.geekuniversity.com.br
 
 
 # Application definition
@@ -125,3 +125,8 @@ STATIC_URL = '/static/' # usado durante o desenvolvimento
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # usado durante a produção
 
 LOGOUT_REDIRECT_URL = 'index'
+
+# ie if Heroku server
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASES = {'default': dj_database_url.config()}
